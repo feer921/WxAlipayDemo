@@ -13,6 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.common.wxalipaydemo.wxapi.WXPayEntryActivity;
+
 import common.pay.sdk.BaseActivity;
 import common.pay.sdk.CommonPayConfig;
 import common.pay.sdk.PayEntryActivity;
@@ -103,12 +105,15 @@ public class MainActivity extends BaseActivity
         if (id == R.id.nav_wx_pay) {
             CustomOrderInfo wxOrderInfo = new CustomOrderInfo();
             wxOrderInfo.parseDataFromJsonStr(testWxServerRespData);
-            PayEntryActivity.startPayActivity(this, wxOrderInfo, TEST_REQUEST_PAY_CODE);
+//            PayEntryActivity.startPayActivity(this, wxOrderInfo, TEST_REQUEST_PAY_CODE);
+            PayEntryActivity.startPayActivity(this, wxOrderInfo, TEST_REQUEST_PAY_CODE, WXPayEntryActivity.class);
             // Handle the camera action
         } else if (id == R.id.nav_alipay) {
             PrePayOrderInfo alipayOrderInfo = new PrePayOrderInfo();
             alipayOrderInfo.setAlipayInfo(testAliOrderInfo);
-            PayEntryActivity.startPayActivity(this, alipayOrderInfo, TEST_REQUEST_PAY_CODE);
+//            PayEntryActivity.startPayActivity(this, alipayOrderInfo, TEST_REQUEST_PAY_CODE);
+            PayEntryActivity.startPayActivity(this, alipayOrderInfo, TEST_REQUEST_PAY_CODE, WXPayEntryActivity.class);
+
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
