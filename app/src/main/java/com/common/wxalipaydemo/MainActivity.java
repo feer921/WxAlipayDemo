@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import common.pay.sdk.BaseActivity;
 import common.pay.sdk.CommonPayConfig;
@@ -20,6 +21,7 @@ import common.pay.sdk.PrePayOrderInfo;
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    TextView tvPayResult;
     @Override
     protected int getProvideContentViewResID() {
         return R.layout.activity_main;
@@ -49,6 +51,7 @@ public class MainActivity extends BaseActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        tvPayResult = findAviewById(R.id.tv_show_pay_result);
     }
 
     @Override
@@ -142,13 +145,17 @@ public class MainActivity extends BaseActivity
                     case CommonPayConfig.REQ_PAY_RESULT_CODE_CANCEL:
                         resultDesc = "支付被取消了";
                         break;
-                    case CommonPayConfig.RQE_PAY_RESULT_CODE_NO_WX:
+                    case CommonPayConfig.REQ_PAY_RESULT_CODE_NO_WX:
                         resultDesc = "支付失败,未安装微信APP";
                         break;
-                    case CommonPayConfig.RQE_PAY_RESULT_CODE_ERROR:
-                        resultDesc = "支付失败,";
+                    case CommonPayConfig.REQ_PAY_RESULT_CODE_ERROR:
+                        resultDesc = "支付失败";
                         break;
                 }
+                String payResultInfo = "支付模式:" + payModeDesc + "\n" +
+                        "支付SDK的实际响应码：" + payRespCode + "\n" +
+                        "结果描述：" + resultDesc;
+                tvPayResult.setText(payResultInfo);
                 toastShow(String.format(toastHint, payModeDesc, payRespCode, resultDesc));
                 break;
         }
